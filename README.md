@@ -1,6 +1,6 @@
 # Dashboad für DSE
 
-### Initalizierung
+### Initialisierung
 
 ```
 python3 -m venv venv
