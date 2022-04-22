@@ -71,7 +71,7 @@ def get_data(query):
 
     return data
 
-# Funktionlität für das BarChart (Gesamtumsatz)
+# Interaktion für das BarChart (Gesamtumsatz)
 @app.callback(
     Output("bar-chart", "figure"), 
     Input("bar-choose-year", "value"))
@@ -79,16 +79,18 @@ def update_bar_chart(year):
     data = get_data(query=f'{year},"Verarbeitendes Gewerbe",Gesamtumsatz')
     
     df = pd.DataFrame(data)
-    df.drop(df[df['MONAT'] == "Summe"].index, inplace = True) # lösche Einträge auf df
+    # lösche Einträge aus df die in der Spalte "MONAT" den Wert "Summe" besitzen
+    df.drop(df[df['MONAT'] == "Summe"].index, inplace = True) 
 
     fig = px.bar(
         df, 
         x="MONAT", 
         y="WERT", 
         title="Gesamtumsatz in EUR des verarbeitenden Gewerbes",)
+    
     return fig
 
-# Funktionlität für das LineChart (Anzahl Beschäftige)        
+# Interaktion für das LineChart (Anzahl Beschäftige)        
 @app.callback(
     Output("line-chart", "figure"), 
     Input("line-choose-year", "value"))
@@ -103,6 +105,7 @@ def update_bar_chart(year):
         y="WERT",  
         title="Anzahl der Beschäftigten des verarbeitenden Gewerbes",
         markers=True,)
+    
     return fig
     
 # Run server
